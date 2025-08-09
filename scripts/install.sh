@@ -75,7 +75,8 @@ fi
 
 log "Setting up Python venv & deps..."
 sudo -u "${SYSTEM_USER}" bash -c "cd '${INSTALL_DIR}/src/backend' && ${PYTHON_BIN} -m venv .venv"
-sudo -u "${SYSTEM_USER}" bash -c "source '${INSTALL_DIR}/src/backend/.venv/bin/activate' && pip install --upgrade pip && pip install -r requirements.txt"
+# --- Robust: absolute pip + absolute requirements path ---
+sudo -u "${SYSTEM_USER}" bash -c "'${INSTALL_DIR}/src/backend/.venv/bin/pip' install --upgrade pip && '${INSTALL_DIR}/src/backend/.venv/bin/pip' install -r '${INSTALL_DIR}/src/backend/requirements.txt'"
 
 log "Ensuring .env (from example or auto-generated)..."
 ENV_PATH="${INSTALL_DIR}/src/backend/.env"
